@@ -1,0 +1,83 @@
+<!DOCUMENT html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <base href="/bolsa-de-trabajo/">
+    <title>Bolsa de Trabajo</title>
+    <meta name="description" content="Sistema de ventas de boletos.">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="favicon.png">
+    <link rel="stylesheet" href="material/css/loading-bar.min.css">
+    <link rel="stylesheet" href="material/css/materialize.min.css">
+    
+    <!-- nav-bar.view.html
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="material/css/material.min.css">
+    <link rel="stylesheet" href="material/css/styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+    FIN nav-bar -->
+
+    <script src="material/js/modernizr.js"></script>
+</head>
+<body>
+<!--[if lte IE 8]>
+    <p class="browsehappy">Estás utilizando un navegador <strong>obsoleto</strong> y muy feo, porfavor <a href="http://browsehappy.com/">actualice su navegador</a> para mejorar su experiencia.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<div ng-controller="mainCtrl">
+    <header nav-directive></header>
+    <section ng-view=""></section>
+    <footer></footer>
+</div>
+
+
+
+
+
+<!-- Librerias externas -->
+<script src="material/js/jquery.js"></script>
+<script src="material/js/angular.min.js"></script>
+<script src="material/js/angular-local-storage.min.js"></script>
+<script src="material/js/sortable.min.js"></script>
+<script src="material/js/jquery-ui.min.js"></script>
+<script src="material/js/loading-bar.min.js"></script>
+<script src="material/js/materialize.min.js"></script>
+<!-- END Librerias externas -->
+
+<!-- Archivos de modulos -->
+<script src="public/main/module.js"></script>
+<!-- END Archivos de modulos -->
+
+<!-- Services -->
+<!-- END Services -->
+
+<!-- Directives -->
+<script src="public/main/directive.js"></script>
+<!-- END Directives -->
+
+<!-- CONTROLLERS -->
+<script src="public/main/controller.js"></script>
+<!-- END CONTROLLERS -->
+
+<!-- Archivos de configuración y de 'rutas' -->
+<script src="public/main/config.js"></script>
+
+<script src="public/app.js"></script>
+<!-- END Archivos de configuración y de 'rutas' -->
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+--- ✄ -----------------------
+@Ctrl+Shif+p -> Package Control: install Package -> Emmet
+
+@Ctrl+Shif+p -> Package Control: install Package -> Plaint task(text)
+
+cmd -> c:/xampp -> dir -> cd mysql -> dir -> cd bin -> mysql -u root -p -> enter enter -> MySQL [(none)]> 
+
+cmd -> c:/xampp -> dir -> cd bin -> mysql -u root -p -> enter enter -> MariaDB [(none)]> 
+--- ✄ -----------------------
+
+Bolsa de Trabajo:
+  Empleado:
+    ☐ id
+    ☐ ci
+    ☐ foto
+    ☐ nombre
+    ☐ apellido
+    ☐ telefono
+    ☐ celular
+    ☐ direccion
+    ☐ id_departamento
+    ☐ provincia
+
+  Empleador:
+    ☐ id
+    ☐ foto
+    ☐ nombre
+    ☐ apellido
+    ☐ empresa
+    ☐ correo
+    ☐ contraseña
+    ☐ telefono
+    ☐ celular
+  
+  Categoria:
+    ☐ id
+    ☐ nombre
+    ☐ logo
+
+  Oferta:
+    ☐ id
+    ☐ id_categoria
+    ☐ id_empleado
+    ☐ id_empleador
+    ☐ id_departamento
+    ☐ detalle
+    ☐ fecha_in
+    ☐ fecha_lim
+    ☐ direccion
+    ☐ lat
+    ☐ long
+
+  notificaciones:
+    ☐ id
+    ☐ id_empleado
+    ☐ id_categoria
+    ☐ fecha
+
+  departemento:
+    ☐ id
+    ☐ nombre
+
+  mensaje:
+    ☐ id
+    ☐ id_empleador
+    ☐ correo
+    ☐ mensaje
+    ☐ fecha
+
+
+
+
+
+Ctrl+Shif+p -> Package Control: install Package -> Emmet
+
+Ctrl+Shif+p -> Package Control: install Package -> Plaint task(text)
