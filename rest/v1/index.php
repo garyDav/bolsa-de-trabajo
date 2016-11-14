@@ -14,7 +14,7 @@ define('SPECIALCONSTANT',true);
 //EntidadesRESTFULL
 require 'models/connect.php';
 
-require 'models/Usuario.php';
+require 'models/Categoria.php';
 //end EntidadesRESTFULL
 
 $app->run();

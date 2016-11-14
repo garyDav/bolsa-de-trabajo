@@ -9,26 +9,12 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="favicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="material/css/loading-bar.min.css">
     <link rel="stylesheet" href="material/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     
-    <!-- nav-bar.view.html
-    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="material/css/material.min.css">
-    <link rel="stylesheet" href="material/css/styles.css">
-    <style>
-    #view-source {
-      position: fixed;
-      display: block;
-      right: 0;
-      bottom: 0;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      z-index: 900;
-    }
-    </style>
-    FIN nav-bar -->
+    <link rel="stylesheet" href="material/css/micss.css">
 
     <script src="material/js/modernizr.js"></script>
 </head>
@@ -40,8 +26,33 @@
 <!-- Add your site or application content here -->
 <div ng-controller="mainCtrl">
     <header nav-directive></header>
-    <section ng-view=""></section>
-    <footer></footer>
+    <section>
+      <div class="row">
+        <div class="col s12 m4 l3 hide-on-small-only card-panel blue-grey darken-4"> 
+          <img ng-src="material/img/panel-lateral.jpg" class="responsive-img z-depth-2">
+
+          <div class="row">
+            <div class="col s12">
+              <div class="collection">
+                <a href="#!" class="collection-item">Notificaciones</a>
+                <a href="#!" class="collection-item">Empleado</a>
+                <a href="#!" class="collection-item">Categoría</a>
+                <a href="#!" class="collection-item">Empleador</a>
+                <a ng-href="/bolsa-de-trabajo/oferta" class="collection-item"><i class="material-icons">toc</i> Oferta</a>
+                <a href="#!" class="collection-item">Departamento</a>
+                <a href="#!" class="collection-item">Mensaje</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m8 l9 card-panel indigo lighten-5" ng-view="">
+          
+        </div>
+
+      </div>
+
+    </section>
+    <footer class="page-footer" footer-directive></footer>
 </div>
 
 
@@ -56,28 +67,36 @@
 <script src="material/js/jquery-ui.min.js"></script>
 <script src="material/js/loading-bar.min.js"></script>
 <script src="material/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 <!-- END Librerias externas -->
 
 <!-- Archivos de modulos -->
 <script src="public/main/module.js"></script>
+<script src="public/oferta/module.js"></script>
 <!-- END Archivos de modulos -->
 
 <!-- Services -->
+<script src="public/oferta/service.js"></script>
 <!-- END Services -->
 
 <!-- Directives -->
 <script src="public/main/directive.js"></script>
+<script src="public/oferta/directive.js"></script>
 <!-- END Directives -->
 
 <!-- CONTROLLERS -->
 <script src="public/main/controller.js"></script>
+<script src="public/oferta/controller.js"></script>
 <!-- END CONTROLLERS -->
 
 <!-- Archivos de configuración y de 'rutas' -->
 <script src="public/main/config.js"></script>
+<script src="public/oferta/config.js"></script>
 
 <script src="public/app.js"></script>
 <!-- END Archivos de configuración y de 'rutas' -->
+
+
 
 </body>
 </html>
