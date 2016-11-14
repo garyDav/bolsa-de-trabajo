@@ -42,15 +42,15 @@ CREATE PROCEDURE pInsertEmpleador (
 	IN v_nombre varchar(50),
 	IN v_apellido varchar(50),
 	IN v_empresa varchar(60),
-	IN v_correo varchar(20),
-	IN v_contra varchar(30),
+	IN v_correo varchar(100),
+	IN v_contra varchar(100),
 	IN v_telefono varchar(15),
 	IN v_celular int
 )
 BEGIN
 	IF NOT EXISTS(SELECT id FROM empleador WHERE correo LIKE v_correo) THEN
 		INSERT INTO empleador VALUES(null,v_foto,v_nombre,v_apellido,v_empresa,v_correo,v_contra,v_telefono,v_celular);
-		SELECT @@identity AS id, '' error;
+		SELECT @@identity AS id, 'Usuario creado exitosamente :)' error;
 	ELSE
 		SELECT 'Error: Correo ya registrado.' error;
 	END IF;
@@ -108,4 +108,28 @@ CREATE PROCEDURE pInsertOferta (
 BEGIN
 	INSERT INTO departamento VALUES(null,v_id_categoria,v_id_empleado,v_id_empleador,v_id_departamento,v_detalle,v_direccion,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,v_latitud,v_longitud);
 	SELECT @@identity AS id, '' error;
+END //
+
+
+
+
+
+
+DROP PROCEDURE IF EXISTS pSession;
+CREATE PROCEDURE pSession(
+	IN v_correo varchar(100),
+	IN v_pwd varchar(100)
+)
+BEGIN
+	DECLARE us int(11);
+	SET us = (SELECT id FROM empleador WHERE correo LIKE v_correo);
+	IF(us) THEN
+		IF EXISTS(SELECT id FROM empleador WHERE id = us AND contra LIKE v_pwd) THEN
+			SELECT id,'success' error FROM empleador WHERE id = us;
+		ELSE
+			SELECT 'Error: Contraseña incorrecta.' error;
+		END IF;
+	ELSE
+		SELECT 'Error: Correo no registrado.' error;
+	END IF;
 END //

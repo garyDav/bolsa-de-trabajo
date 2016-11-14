@@ -45,6 +45,7 @@ $app->post("/empleador/",function() use($app) {
 	$nombre = $objDatos->nombre;
 	$apellido = $objDatos->apellido;
 	$empresa = $objDatos->empresa;
+	$correo = $objDatos->correo;
 	$contra = $objDatos->contra;
 	$telefono = $objDatos->telefono;
 	$celular = $objDatos->celular;
@@ -52,7 +53,11 @@ $app->post("/empleador/",function() use($app) {
 	try {
 		$conex = getConex();
 
-		$result = $conex->prepare("CALL pInsertEmpleador('$foto','$nombre','$apellido','$empresa','$contra','$telefono','$celular');");
+		$salt = '#/$02.06$/#_#/$25.10$/#';
+		$contra = md5($salt.$contra);
+		$contra = sha1($salt.$contra);
+
+		$result = $conex->prepare("CALL pInsertEmpleador('$foto','$nombre','$apellido','$empresa','$correo','$contra','$telefono','$celular');");
 
 		$result->execute();
 		$res = $result->fetchObject();
@@ -116,3 +121,36 @@ $app->delete('/empleador/:id',function($id) use($app) {
 		echo 'Error: '.$e->getMessage();
 	}
 })->conditions(array('id'=>'[0-9]{1,11}'));
+
+
+$app->post("/login/",function() use($app) {
+	$objDatos = json_decode(file_get_contents("php://input"));
+
+	$correo = $objDatos->correo;
+	$contra = $objDatos->contra;
+
+	try {
+		$conex = getConex();
+
+		$salt = '#/$02.06$/#_#/$25.10$/#';
+		$contra = md5($salt.$contra);
+		$contra = sha1($salt.$contra);
+
+		$result = $conex->prepare("CALL pSession('$correo','$contra');");
+
+		$result->execute();
+		$res = $result->fetchObject();
+		//$res = array('response'=>'success');
+
+		$conex = null;
+
+		$app->response->headers->set("Content-type","application/json");
+		$app->response->headers->set('Access-Control-Allow-Origin','*');
+		$app->response->status(200);
+		$app->response->body(json_encode($res));
+		//$app->response->body($ci);
+
+	}catch(PDOException $e) {
+		echo "Error: ".$e->getMessage();
+	}
+});

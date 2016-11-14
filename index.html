@@ -25,7 +25,7 @@
 
 <!-- Add your site or application content here -->
 <div ng-controller="mainCtrl">
-    <header nav-directive></header>
+    <!--<header nav-directive></header>
     <section>
       <div class="row">
         <div class="col s12 m4 l3 hide-on-small-only card-panel blue-grey darken-4"> 
@@ -52,7 +52,20 @@
       </div>
 
     </section>
-    <footer class="page-footer" footer-directive></footer>
+    <footer class="page-footer" footer-directive></footer>-->
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <a ng-href="/bolsa-de-trabajo/" class="brand-logo  hide-on-med-and-down">Logo</a>
+          <ul class="right">
+            <li><a ng-href="/bolsa-de-trabajo/signin"><i class="material-icons left">vpn_key</i>Signin</a></li>
+            <li><a ng-href="/bolsa-de-trabajo/signup"><i class="material-icons right">perm_identity</i>Signup</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <section ng-view></section>
+    <footer></footer>
 </div>
 
 
@@ -76,6 +89,7 @@
 <!-- END Archivos de modulos -->
 
 <!-- Services -->
+<script src="public/main/service.js"></script>
 <script src="public/oferta/service.js"></script>
 <!-- END Services -->
 

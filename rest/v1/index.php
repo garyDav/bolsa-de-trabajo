@@ -15,6 +15,10 @@ define('SPECIALCONSTANT',true);
 require 'models/connect.php';
 
 require 'models/Categoria.php';
+require 'models/Departamento.php';
+require 'models/Empleado.php';
+require 'models/Empleador.php';
+require 'models/Mensaje.php';
 //end EntidadesRESTFULL
 
 $app->run();
