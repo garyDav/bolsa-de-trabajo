@@ -1,0 +1,33 @@
+@media (max-width: 1200px) {
+
+ body,html{
+	background: green;
+}
+
+
+}
+
+@media (max-width: 992px ) {
+
+ body,html{
+	background: blue;
+}
+
+}
+@media (max-width: 600px) {
+
+ body,html{
+	background: yellow;
+}
+
+}
+
+
+
+
+
+
+
+
+
+

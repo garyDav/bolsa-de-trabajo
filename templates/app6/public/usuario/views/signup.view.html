@@ -1,0 +1,64 @@
+<div class="container contenido animated fadeIn" ng-controller="usuarioCtrl">
+	<div class="row">
+		<div class="col s12">
+			<div class="row">
+				<div class="col offset-m1 m4 hide-on-small-only ">
+					
+  						<img src="vendor/img/iphone.png" class="responsive-img" alt="">
+					
+				</div>
+				<div class="col s12 m6">
+
+					<!-- Sign up -->
+					<div class="card-panel login">
+						<center>
+							<img src="vendor/img/appLogo.png" class="logo responsive-img center" alt="">
+						</center>
+						<div class="row">
+							<form ng-submit="create();">
+				        		<!-- nombre completo -->
+				        		<div class="input-field col s10 offset-s1">
+				        			<i class="material-icons prefix">account_circle</i>
+				         			 <input  id="name" type="text" class="validate" ng-model="name">
+				          			<label for="nombre">Nombre Completo</label>
+				        		</div>
+				        		<!-- nombre usuario -->
+				        		<div class="input-field col s10 offset-s1">
+				        			<i class="material-icons prefix">account_circle</i>
+				         			 <input  id="username" type="text" class="validate" ng-model="user">
+				          				<label for="usuario">Nombre de Usuario</label>
+				        		</div>
+				        		<!-- email -->
+				        		<div class="input-field col s10 offset-s1">
+				        			<i class="material-icons prefix">email</i>
+				         			 <input  id="email" type="email" class="validate" ng-model="email">
+				          			<label for="email">Correo</label>
+				        		</div>	
+				        		<!-- password -->
+				        		<div class="input-field col s10  offset-s1">
+				        			<i class="material-icons prefix">lock</i>
+				         			 <input  id="password" type="password" class="validate" ng-model="password">
+				          			<label for="password">Contraseña</label>
+				        		</div>
+								<div ng-show="mensaje">
+									{{mensaje}}
+								</div>
+								<center>
+									<button type="submit" class="btn center waves-effect waves-light blue">Registrar</button>
+								</center>
+							</form>
+						</div>
+					</div>
+
+					<div class="card-panel login registro">
+						<p class="center-align"> <span class="azul">Tienes una cuenta?</span> <a href="signin/" >Entra</a></p>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
