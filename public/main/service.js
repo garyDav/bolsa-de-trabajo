@@ -13,7 +13,7 @@
 		}
 	]);
 
-	angular.module('mainModule').factory('loginService',function ($http,$location,sessionService) {
+	angular.module('mainModule').factory('loginService',function ($http,$location,sessionService,$rootScope) {
 		return {
 			login: function(user,scope) {
 				var $promise = $http.post('rest/v1/login',user);
@@ -22,16 +22,17 @@
 					if(uid == 'success') {
 						//scope.msgtxt = 'Correct Information';
 						sessionService.set('user',res.data.id);
+						$rootScope.c_user = true;
 						$location.path('/admin');
 					} else {
 						scope.msgtxt = 'Error Information';
-						$location.path('/signin');
+						$location.path('/ingresar');
 					}
 				});
 			},
 			lougout: function() {
 				sessionService.destroy('user');
-				$location.path('/signin');
+				$location.path('/ingresar');
 			}
 		};
 	});

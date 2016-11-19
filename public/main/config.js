@@ -5,21 +5,21 @@
 		function($routeProvider) {
 			$routeProvider.
 				when('/',{
-					templateUrl: 'public/main/views/nav-bar.view.html'
+					templateUrl: 'public/main/views/index.view.html'
 				}).
 				when('/admin',{
 					resolve: {
 						"check":function($location,sessionService) {
 							if(!sessionService.get('user'))
-								$location.path('/signin');
+								$location.path('/ingresar');
 						}
 					},
 					templateUrl: 'public/main/views/main.view.html'
 				}).
-				when('/signin',{
+				when('/ingresar',{
 					templateUrl: 'public/main/views/signin.view.html'
 				}).
-				when('/signup',{
+				when('/registrate',{
 					templateUrl: 'public/main/views/signup.view.html'
 				}).
 				otherwise({
