@@ -12,6 +12,17 @@
 			});
 		}
 	]);
+	angular.module('mainModule').factory('categoriaService',['$resource',
+		function($resource) {
+			return $resource('rest/v1/categoria/:id', {
+				id: '@id'
+			}, {
+				update: {
+					method: 'PUT'
+				}
+			});
+		}
+	]);
 
 	angular.module('mainModule').factory('loginService',function ($http,$location,sessionService,$rootScope) {
 		return {

@@ -3,7 +3,7 @@
 
 //Variable global mainApplicationModuleName donde carga el modulo principal
 var mainApplicationModuleName = 'bolsaT';
-var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngResource','ngRoute','ui.sortable','mainModule','ofertaModule','LocalStorageModule','angular-loading-bar','ngAnimate']);
+var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngResource','ngRoute','ui.sortable','mainModule','categoriaModule','departamentoModule','empresaModule','sucursalModule','trabajoModule','LocalStorageModule','angular-loading-bar','ngAnimate']);
 
 mainApplicationModule.config(['$locationProvider',function($locationProvider) {
 	$locationProvider.html5Mode(true);

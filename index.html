@@ -10,21 +10,28 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="favicon.png">
     <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <!--<link href="material/css/plugin-min.css" type="text/css" rel="stylesheet">-->
+    <!--<link href="material/css/plugin.css" type="text/css" rel="stylesheet">-->
+    <link href="material/css/custom-min.css" type="text/css" rel="stylesheet" >
+
+
+
     <link rel="stylesheet" href="material/css/fonts-google.css">
     <link rel="stylesheet" href="material/css/loading-bar.min.css">
     <link rel="stylesheet" href="material/css/materialize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     
     <link rel="stylesheet" href="material/css/micss.css">
 
     <!-- Template Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">-->
 
     <!-- Bootstrap core CSS -->
-    <link href="material/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="material/css/bootstrap.min.css" rel="stylesheet">-->
 
     <!-- Material Design Bootstrap -->
-    <link href="material/css/mdb.min.css" rel="stylesheet">
+    <!--<link href="material/css/mdb.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    
 
     <script src="material/js/modernizr.js"></script>
 </head>
@@ -35,50 +42,9 @@
 
 <!-- Add your site or application content here -->
 <div ng-controller="mainCtrl">
-    <!--<header nav-directive></header>
-    <section>
-      <div class="row">
-        <div class="col s12 m4 l3 hide-on-small-only"> 
-          <img ng-src="material/img/panel-lateral.jpg" class="responsive-img z-depth-2">
-
-          <div class="row">
-            <div class="col s12">
-              <div class="collection">
-                <a href="#!" class="collection-item">Notificaciones</a>
-                <a href="#!" class="collection-item">Empleado</a>
-                <a href="#!" class="collection-item">Categoría</a>
-                <a href="#!" class="collection-item">Empleador</a>
-                <a ng-href="/bolsa-de-trabajo/oferta" class="collection-item"><i class="material-icons">toc</i> Oferta</a>
-                <a href="#!" class="collection-item">Departamento</a>
-                <a href="#!" class="collection-item">Mensaje</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col s12 m8 l9 card-panel indigo lighten-5" ng-view="">
-          
-        </div>
-
-      </div>
-
-    </section>
-    <footer class="page-footer" footer-directive></footer>-->
-
-
-    <header>
-      <nav ng-hide="c_user">
-        <div class="nav-wrapper">
-          <a ng-href="/bolsa-de-trabajo/" class="brand-logo hide-on-large-only">Logo</a>
-          <ul class="right">
-            <li><a ng-href="/bolsa-de-trabajo/ingresar"><i class="material-icons left">vpn_key</i>Ingresar</a></li>
-            <li><a ng-href="/bolsa-de-trabajo/registrate"><i class="material-icons right">perm_identity</i>Registrarse</a></li>
-            <li><a ng-href="/bolsa-de-trabajo/"><i class="material-icons right">info_outline</i>Inicio</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+    <header main-directive></header>
     <section ng-view></section>
-    <footer></footer>
+    <footer class="page-footer deep-orange darken-3" footer-directive></footer>
 </div>
 
 
@@ -92,8 +58,10 @@
 <script src="material/js/sortable.min.js"></script>
 <script src="material/js/jquery-ui.min.js"></script>
 <script src="material/js/loading-bar.min.js"></script>
+<script src="material/js/velocity.min.js"></script>
 <script src="material/js/materialize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>-->
 
 
 <!-- Bootstrap tooltips -->
@@ -109,32 +77,50 @@
 
 <!-- Archivos de modulos -->
 <script src="public/main/module.js"></script>
-<script src="public/oferta/module.js"></script>
+<script src="public/categoria/module.js"></script>
+<script src="public/departamento/module.js"></script>
+<script src="public/empresa/module.js"></script>
+<script src="public/sucursal/module.js"></script>
+<script src="public/trabajo/module.js"></script>
 <!-- END Archivos de modulos -->
 
 <!-- Services -->
 <script src="public/main/service.js"></script>
-<script src="public/oferta/service.js"></script>
+<script src="public/categoria/service.js"></script>
+<script src="public/departamento/service.js"></script>
+<script src="public/empresa/service.js"></script>
+<script src="public/sucursal/service.js"></script>
+<script src="public/trabajo/service.js"></script>
 <!-- END Services -->
 
 <!-- Directives -->
 <script src="public/main/directive.js"></script>
-<script src="public/oferta/directive.js"></script>
+<script src="public/categoria/directive.js"></script>
+<script src="public/departamento/directive.js"></script>
+<script src="public/empresa/directive.js"></script>
+<script src="public/sucursal/directive.js"></script>
+<script src="public/trabajo/directive.js"></script>
 <!-- END Directives -->
 
 <!-- CONTROLLERS -->
 <script src="public/main/controller.js"></script>
-<script src="public/oferta/controller.js"></script>
+<script src="public/categoria/controller.js"></script>
+<script src="public/departamento/controller.js"></script>
+<script src="public/empresa/controller.js"></script>
+<script src="public/sucursal/controller.js"></script>
+<script src="public/trabajo/controller.js"></script>
 <!-- END CONTROLLERS -->
 
 <!-- Archivos de configuración y de 'rutas' -->
 <script src="public/main/config.js"></script>
-<script src="public/oferta/config.js"></script>
+<script src="public/categoria/config.js"></script>
+<script src="public/departamento/config.js"></script>
+<script src="public/empresa/config.js"></script>
+<script src="public/sucursal/config.js"></script>
+<script src="public/trabajo/config.js"></script>
 
 <script src="public/app.js"></script>
 <!-- END Archivos de configuración y de 'rutas' -->
-
-
 
 </body>
 </html>

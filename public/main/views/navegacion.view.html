@@ -1,0 +1,30 @@
+<nav class="nav-extended blue-grey darken-3" ng-init="nav();find();">
+  <div class="nav-wrapper">
+    <a href="/bolsa-de-trabajo/" class="brand-logo">Bolsa de trabajo</a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/bolsa-de-trabajo/"><i class="material-icons left">info</i> Info</a></li>
+      <li><a href="/bolsa-de-trabajo/empresa"><i class="material-icons left">assessment</i> Empresas</a></li>
+      <li><a href="/bolsa-de-trabajo/ingresar"><i class="material-icons left">vpn_key</i> Ingresar</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><a href="/bolsa-de-trabajo/"><i class="material-icons left">info</i> Info</a></li>
+      <li><a href="/bolsa-de-trabajo/empresa"><i class="material-icons left">assessment</i> Empresas</a></li>
+      <li><a href="/bolsa-de-trabajo/ingresar"><i class="material-icons left">vpn_key</i> Ingresar</a></li>
+    </ul>
+
+    <ul class="tabs tabs-transparent blue-grey darken-4">
+      <li class="tab" ng-repeat="d in data"><a ng-click="navCate(d.id);">{{d.name}} </a></li>
+    </ul>
+  </div>
+</nav>
+
+<script src="material/js/velocity.min.js"></script>
+<script src="material/js/materialize.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>-->
+<script>
+  $(document).ready(function(){
+    //aquí meteremos las instrucciones que modifiquen el DOM
+    $(".button-collapse").sideNav();
+  });
+</script>

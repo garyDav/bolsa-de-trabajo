@@ -21,8 +21,7 @@
 				}).
 				when('/registrate',{
 					templateUrl: 'public/main/views/signup.view.html'
-				}).
-				otherwise({
+				}).otherwise({
 					redirectTo: '/'
 				});
 		}

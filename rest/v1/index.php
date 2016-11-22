@@ -16,9 +16,10 @@ require 'models/connect.php';
 
 require 'models/Categoria.php';
 require 'models/Departamento.php';
-require 'models/Empleado.php';
-require 'models/Empleador.php';
-require 'models/Mensaje.php';
+require 'models/Empresa.php';
+require 'models/Sucursal.php';
+require 'models/Trabajo.php';
+require 'models/User.php';
 //end EntidadesRESTFULL
 
 $app->run();

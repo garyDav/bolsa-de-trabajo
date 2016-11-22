@@ -93,7 +93,7 @@ $app->put("/categoria/:id",function($id) use($app) {
 $app->delete('/categoria/:id',function($id) use($app) {
 	try {
 		$conex = getConex();
-		$result = $conex->prepare("DELETE categoria WHERE id='$id'");
+		$result = $conex->prepare("DELETE FROM categoria WHERE id='$id'");
 
 		$result->execute();
 		$conex = null;

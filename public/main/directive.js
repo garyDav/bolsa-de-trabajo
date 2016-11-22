@@ -11,7 +11,7 @@
 		};
 	}).directive('mainDirective',function(){
 		return {
-			templateUrl: 'public/main/views/main.view.html'
+			templateUrl: 'public/main/views/navegacion.view.html'
 		};
 	});
 

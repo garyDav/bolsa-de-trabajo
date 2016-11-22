@@ -1,9 +1,24 @@
 (function(angular){
 	'use strict';
-	angular.module('mainModule').controller('mainCtrl',['$scope','usuarioService','loginService','$rootScope',
-		function($scope,usuarioService,loginService,$rootScope) {
+	angular.module('mainModule').controller('mainCtrl',['$scope','usuarioService','loginService','$rootScope','categoriaService','$location',
+		function($scope,usuarioService,loginService,$rootScope,categoriaService,$location) {
 			$scope.mensaje = '';
 			$scope.msgtxt = '';
+			$scope.nav = function() {
+				console.log('Hola navegacion');
+			};
+			$scope.navCate = function(id) {
+				$location.path('categoria/'+id);
+			};
+			$scope.find = function() {
+				var obj = categoriaService.query();
+				obj.$promise.then(function(response){
+					$scope.data = response;
+					console.log($scope.data);
+				},function(response){
+					console.log(response);
+				});
+			};
 			$scope.create = function() {
 				var usuario = new usuarioService({
 					foto: '',

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-11-2016 a las 23:42:46
+-- Tiempo de generación: 22-11-2016 a las 06:13:24
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 7.0.1
 
@@ -24,63 +24,54 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertCategoria` (IN `v_nombre` VARCHAR(50), IN `v_logo` VARCHAR(30))  BEGIN
-IF NOT EXISTS(SELECT id FROM categoria WHERE nombre LIKE v_nombre) THEN
-INSERT INTO categoria VALUES(null,v_nombre,v_logo);
-SELECT @@identity AS id, '' error;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertCategoria` (IN `v_name` VARCHAR(50), IN `v_logo` VARCHAR(150))  BEGIN
+IF NOT EXISTS(SELECT id FROM categoria WHERE name LIKE v_name) THEN
+INSERT INTO categoria VALUES(null,v_name,v_logo);
+SELECT @@identity AS id, 'success' error;
 ELSE
 SELECT 'Error: Nombre ya registrado.' error;
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertDepartamento` (IN `v_nombre` VARCHAR(50))  BEGIN
-IF NOT EXISTS(SELECT id FROM departamento WHERE nombre LIKE v_nombre) THEN
-INSERT INTO departamento VALUES(null,v_nombre);
-SELECT @@identity AS id, '' error;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertDepartamento` (IN `v_name` VARCHAR(100))  BEGIN
+INSERT INTO departamento VALUES(null, v_name);
+SELECT @@identity AS id, 'success' error;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertEmpresa` (IN `v_id_categoria` INT, IN `v_name` VARCHAR(50), IN `v_email` VARCHAR(100), IN `v_address` VARCHAR(50), IN `v_phone` VARCHAR(30), IN `v_cell` INT, IN `v_photo` VARCHAR(150), IN `v_detail` TEXT)  BEGIN
+IF NOT EXISTS(SELECT id FROM empresa WHERE name LIKE v_name) THEN
+INSERT INTO empresa VALUES(null, v_id_categoria, v_name, v_email, v_address, v_phone, v_cell, v_photo, v_detail);
+SELECT @@identity AS id, 'success' error;
 ELSE
-SELECT 'Error: Nombre ya registrado.' error;
+SELECT 'Error: Nombre de empresa ya registrado.' error;
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertEmpleado` (IN `v_ci` VARCHAR(15), IN `v_foto` VARCHAR(30), IN `v_nombre` VARCHAR(50), IN `v_apellido` VARCHAR(50), IN `v_telefono` VARCHAR(15), IN `v_celular` INT, IN `v_direccion` VARCHAR(50))  BEGIN
-IF NOT EXISTS(SELECT id FROM categoria WHERE ci LIKE v_ci) THEN
-INSERT INTO categoria VALUES(null,v_ci,v_foto,v_nombre,v_apellido,v_telefono,v_celular,v_direccion);
-SELECT @@identity AS id, '' error;
-ELSE
-SELECT 'Error: CI ya registrado.' error;
-END IF;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertSucursal` (IN `v_id_empresa` INT, IN `v_id_departamento` INT, IN `v_name` VARCHAR(50), IN `v_address` VARCHAR(50), IN `v_phone` VARCHAR(30), IN `v_cell` INT)  BEGIN
+INSERT INTO sucursal VALUES(null, v_id_empresa, v_id_departamento, v_name, v_address, v_phone, v_cell);
+SELECT @@identity AS id, 'success' error;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertEmpleador` (IN `v_foto` VARCHAR(30), IN `v_nombre` VARCHAR(50), IN `v_apellido` VARCHAR(50), IN `v_empresa` VARCHAR(60), IN `v_correo` VARCHAR(100), IN `v_contra` VARCHAR(100), IN `v_telefono` VARCHAR(15), IN `v_celular` INT)  BEGIN
-IF NOT EXISTS(SELECT id FROM empleador WHERE correo LIKE v_correo) THEN
-INSERT INTO empleador VALUES(null,v_foto,v_nombre,v_apellido,v_empresa,v_correo,v_contra,v_telefono,v_celular);
-SELECT @@identity AS id, 'Usuario creado exitosamente :)' error;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertTrabajo` (IN `v_id_empresa` INT, IN `v_name` VARCHAR(50), IN `v_detail` TEXT, IN `v_salary` FLOAT, IN `v_fec_in` DATETIME, IN `v_fec_lim` DATETIME)  BEGIN
+INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, v_fec_in, v_fec_lim);
+SELECT @@identity AS id, 'success' error;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertUser` (IN `v_name` VARCHAR(50), IN `v_las_name` VARCHAR(50), IN `v_email` VARCHAR(100), IN `v_password` VARCHAR(100), IN `v_cell` INT)  BEGIN
+IF NOT EXISTS(SELECT id FROM user WHERE email LIKE v_email) THEN
+INSERT INTO user VALUES(null,v_name,v_las_name,v_email,v_password,v_cell,CURRENT_TIMESTAMP);
+SELECT @@identity AS id, 'success' error;
 ELSE
 SELECT 'Error: Correo ya registrado.' error;
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertMensaje` (IN `v_id_empleador` INT, IN `v_correo` VARCHAR(30), IN `v_mensaje` TEXT)  BEGIN
-INSERT INTO categoria VALUES(null,v_id_empleador,v_correo,v_mensaje,CURRENT_TIMESTAMP);
-SELECT @@identity AS id, '' error;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertNotificaciones` (IN `v_id_categoria` INT, IN `v_id_empleado` INT)  BEGIN
-INSERT INTO notificaciones VALUES(null,v_id_categoria,v_id_empleado,CURRENT_TIMESTAMP);
-SELECT @@identity AS id, '' error;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertOferta` (IN `v_id_categoria` INT, IN `v_id_empleado` INT, IN `v_id_empleador` INT, IN `v_id_departamento` INT, IN `v_detalle` TEXT, IN `v_direccion` VARCHAR(50), IN `v_latitud` VARCHAR(150), IN `v_longitud` VARCHAR(150))  BEGIN
-INSERT INTO departamento VALUES(null,v_id_categoria,v_id_empleado,v_id_empleador,v_id_departamento,v_detalle,v_direccion,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,v_latitud,v_longitud);
-SELECT @@identity AS id, '' error;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pSession` (IN `v_correo` VARCHAR(100), IN `v_pwd` VARCHAR(100))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pSession` (IN `v_email` VARCHAR(100), IN `v_pwd` VARCHAR(100))  BEGIN
 DECLARE us int(11);
-SET us = (SELECT id FROM empleador WHERE correo LIKE v_correo);
+SET us = (SELECT id FROM user WHERE email LIKE v_email);
 IF(us) THEN
-IF EXISTS(SELECT id FROM empleador WHERE id = us AND contra LIKE v_pwd) THEN
-SELECT id,'success' error FROM empleador WHERE id = us;
+IF EXISTS(SELECT id FROM user WHERE id = us AND password LIKE v_pwd) THEN
+SELECT id,'success' error FROM user WHERE id = us;
 ELSE
 SELECT 'Error: Contraseña incorrecta.' error;
 END IF;
@@ -99,21 +90,22 @@ DELIMITER ;
 
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `logo` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `logo` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`id`, `nombre`, `logo`) VALUES
-(1, 'Mano de obra', 'mano_de_obra.jpg'),
-(2, 'Tecnicos', 'tecnicos.jpg'),
-(3, 'Medicos', 'medicos.jpg'),
-(4, 'Odontologos', 'odontologos.jpg'),
-(5, 'Abogados', 'abogados.jpg'),
-(6, 'Limpieza', 'limpieza.jpg');
+INSERT INTO `categoria` (`id`, `name`, `logo`) VALUES
+(1, 'tecnicos', 'tecnicos.jpg'),
+(2, 'hogar', 'hogar.jpg'),
+(3, 'diseñador', 'diseñador.jpg'),
+(4, 'licenciatura', 'licenciatura.jpg'),
+(5, 'ingenieria', 'ingenieria.jpg'),
+(6, 'salud', 'salud.jpg'),
+(7, 'sociales', 'sociales.jpg');
 
 -- --------------------------------------------------------
 
@@ -123,96 +115,84 @@ INSERT INTO `categoria` (`id`, `nombre`, `logo`) VALUES
 
 CREATE TABLE `departamento` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
+  `name` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleado`
+-- Estructura de tabla para la tabla `empresa`
 --
 
-CREATE TABLE `empleado` (
-  `id` int(11) NOT NULL,
-  `ci` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `foto` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `apellido` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `telefono` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `celular` int(11) DEFAULT NULL,
-  `direccion` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `empleador`
---
-
-CREATE TABLE `empleador` (
-  `id` int(11) NOT NULL,
-  `foto` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `apellido` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `empresa` varchar(60) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `correo` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `contra` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `telefono` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `celular` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `empleador`
---
-
-INSERT INTO `empleador` (`id`, `foto`, `nombre`, `apellido`, `empresa`, `correo`, `contra`, `telefono`, `celular`) VALUES
-(5, '', 'Juan', 'Perez', 'Diseñadores', 'juan@gmail.com', 'b686682c584d3bb40e819d7eb67212b9e44ad99b', '', 0);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `mensaje`
---
-
-CREATE TABLE `mensaje` (
-  `id` int(11) NOT NULL,
-  `id_empleador` int(11) DEFAULT NULL,
-  `correo` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `mensaje` text COLLATE utf8_spanish_ci,
-  `fecha` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `notificaciones`
---
-
-CREATE TABLE `notificaciones` (
+CREATE TABLE `empresa` (
   `id` int(11) NOT NULL,
   `id_categoria` int(11) DEFAULT NULL,
-  `id_empleado` int(11) DEFAULT NULL,
-  `fecha` datetime DEFAULT NULL
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `address` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `phone` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cell` int(11) DEFAULT NULL,
+  `photo` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `detail` text COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `empresa`
+--
+
+INSERT INTO `empresa` (`id`, `id_categoria`, `name`, `email`, `address`, `phone`, `cell`, `photo`, `detail`) VALUES
+(1, 1, 'Constructora muro duro', 'm_constructora@gmail.com', 'Cll: Descatamento 111 N° 563', '64-35845', 75784211, 'empresa1.jpg', 'Esta es una empresa dedicada a la construccion de viviendas.'),
+(2, 1, 'Tecno Service', 'tecno_service@gmail.com', 'Ricardo Andrade N°10', '64-15476', 72784566, 'empresa2.jpg', 'Esta es una empresa dedicada a la reparacion y mantenimiento de computadoras.'),
+(3, 2, 'Empresa señoritas del hogar', 'hogar_emp@gmail.com', 'Jaime Mendoza N°541', '64-95478', 72006544, 'empresa3.jpg', 'Esta es una empresa donde contrataras las mejores chicas para el cuidado de tu hogar y el tuyo.'),
+(4, 4, 'Buffet los doctores', 'buffet_abogados@gmail.com', 'Aniceto Arce N°50', '64-65841', 73006588, 'empresa4.jpg', 'Esta es una empresa de gangster que te robaran si ganas un caso o no.');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `oferta`
+-- Estructura de tabla para la tabla `sucursal`
 --
 
-CREATE TABLE `oferta` (
+CREATE TABLE `sucursal` (
   `id` int(11) NOT NULL,
-  `id_categoria` int(11) DEFAULT NULL,
-  `id_empleado` int(11) DEFAULT NULL,
-  `id_empleador` int(11) DEFAULT NULL,
+  `id_empresa` int(11) DEFAULT NULL,
   `id_departamento` int(11) DEFAULT NULL,
-  `detalle` text COLLATE utf8_spanish_ci,
-  `direccion` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `fecha_in` datetime DEFAULT NULL,
-  `fecha_lim` datetime DEFAULT NULL,
-  `latitud` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `longitud` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `address` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `phone` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cell` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trabajo`
+--
+
+CREATE TABLE `trabajo` (
+  `id` int(11) NOT NULL,
+  `id_empresa` int(11) DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `detail` text COLLATE utf8_spanish_ci,
+  `salary` float DEFAULT NULL,
+  `fec` datetime DEFAULT NULL,
+  `fec_in` datetime DEFAULT NULL,
+  `fec_lim` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `las_name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `password` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cell` int(11) DEFAULT NULL,
+  `fec` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -232,41 +212,32 @@ ALTER TABLE `departamento`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `empleado`
+-- Indices de la tabla `empresa`
 --
-ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `empleador`
---
-ALTER TABLE `empleador`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `mensaje`
---
-ALTER TABLE `mensaje`
+ALTER TABLE `empresa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_empleador` (`id_empleador`);
+  ADD KEY `id_categoria` (`id_categoria`);
 
 --
--- Indices de la tabla `notificaciones`
+-- Indices de la tabla `sucursal`
 --
-ALTER TABLE `notificaciones`
+ALTER TABLE `sucursal`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_categoria` (`id_categoria`),
-  ADD KEY `id_empleado` (`id_empleado`);
-
---
--- Indices de la tabla `oferta`
---
-ALTER TABLE `oferta`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_categoria` (`id_categoria`),
-  ADD KEY `id_empleado` (`id_empleado`),
-  ADD KEY `id_empleador` (`id_empleador`),
+  ADD KEY `id_empresa` (`id_empresa`),
   ADD KEY `id_departamento` (`id_departamento`);
+
+--
+-- Indices de la tabla `trabajo`
+--
+ALTER TABLE `trabajo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_empresa` (`id_empresa`);
+
+--
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -276,62 +247,54 @@ ALTER TABLE `oferta`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `empleado`
+-- AUTO_INCREMENT de la tabla `empresa`
 --
-ALTER TABLE `empleado`
+ALTER TABLE `empresa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `sucursal`
+--
+ALTER TABLE `sucursal`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `empleador`
+-- AUTO_INCREMENT de la tabla `trabajo`
 --
-ALTER TABLE `empleador`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `mensaje`
---
-ALTER TABLE `mensaje`
+ALTER TABLE `trabajo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `notificaciones`
+-- AUTO_INCREMENT de la tabla `user`
 --
-ALTER TABLE `notificaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `oferta`
---
-ALTER TABLE `oferta`
+ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `mensaje`
+-- Filtros para la tabla `empresa`
 --
-ALTER TABLE `mensaje`
-  ADD CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_empleador`) REFERENCES `empleador` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `empresa`
+  ADD CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`);
 
 --
--- Filtros para la tabla `notificaciones`
+-- Filtros para la tabla `sucursal`
 --
-ALTER TABLE `notificaciones`
-  ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `notificaciones_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `sucursal`
+  ADD CONSTRAINT `sucursal_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id`),
+  ADD CONSTRAINT `sucursal_ibfk_2` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id`);
 
 --
--- Filtros para la tabla `oferta`
+-- Filtros para la tabla `trabajo`
 --
-ALTER TABLE `oferta`
-  ADD CONSTRAINT `oferta_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `oferta_ibfk_2` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `oferta_ibfk_3` FOREIGN KEY (`id_empleador`) REFERENCES `empleador` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `oferta_ibfk_4` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `trabajo`
+  ADD CONSTRAINT `trabajo_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

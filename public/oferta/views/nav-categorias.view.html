@@ -1,8 +1,0 @@
-<nav class="nav-extended grey darken-3" ng-controller="ofertaCtrl" ng-init="find_cate();">
-  <div class="nav-wrapper">
-    <ul class="tabs tabs-transparent">
-      <li class="tab"><a class="active" ng-href="/bolsa-de-trabajo/oferta/">Todos</a></li>
-      <li class="tab" ng-repeat="cate in categoria"><a ng-href="/bolsa-de-trabajo/oferta/categoria/{{cate.id}}">{{cate.nombre}}</a></li>
-    </ul>
-  </div>
-</nav>
