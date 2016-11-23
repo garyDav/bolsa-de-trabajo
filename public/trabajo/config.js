@@ -6,7 +6,7 @@
 			$routeProvider.
 				when('/trabajo',{
 					templateUrl: 'public/trabajo/views/list-trabajo.view.html'
-				}).when('/trabajo/:id',{
+				}).when('/trabajos/empresa/:id',{
 					templateUrl: 'public/trabajo/views/view-trabajo.view.html'
 				});
 		}

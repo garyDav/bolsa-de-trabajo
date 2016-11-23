@@ -155,7 +155,7 @@ CREATE PROCEDURE pInsertTrabajo (
 	IN v_fec_lim datetime
 )
 BEGIN
-	INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, v_fec_in, v_fec_lim);
+	INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, CURRENT_TIMESTAMP, v_fec_in, v_fec_lim);
 	SELECT @@identity AS id, 'success' error;
 END //
 

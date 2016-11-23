@@ -21,7 +21,7 @@
 						console.log($scope.one_data);
 					}
 				);
-			}
+			};
 		}
 	]);
 

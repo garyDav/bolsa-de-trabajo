@@ -14,6 +14,7 @@ define('SPECIALCONSTANT',true);
 //EntidadesRESTFULL
 require 'models/connect.php';
 
+require 'models/Combinaciones.php';
 require 'models/Categoria.php';
 require 'models/Departamento.php';
 require 'models/Empresa.php';

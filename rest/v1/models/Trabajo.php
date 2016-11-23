@@ -23,7 +23,7 @@ $app->get('/trabajo/:id',function($id) use($app) {
 	try {
 		$conex = getConex();
 
-		$result = $conex->prepare("SELECT * FROM trabajo as t,empresa as e WHERE t.id_empresa=e.id AND e.id='$id';");
+		$result = $conex->prepare("SELECT * FROM trabajo id='$id';");
 
 		$result->execute();
 		$res = $result->fetchObject();

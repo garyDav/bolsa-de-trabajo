@@ -13,5 +13,14 @@
 		}
 	]);
 
+	angular.module('trabajoModule').factory('trabajoEmpresaService',['$http',
+		function($http) {
+			return {
+				getTrabajo: function(id) {
+					return $http.get('rest/v1/trabajo/empresa/'+id);
+				}
+			};
+		}
+	]);
 
 })(window.angular);
