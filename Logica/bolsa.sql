@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-11-2016 a las 06:13:24
+-- Tiempo de generación: 24-11-2016 a las 09:16:33
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 7.0.1
 
@@ -39,9 +39,11 @@ SELECT @@identity AS id, 'success' error;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertEmpresa` (IN `v_id_categoria` INT, IN `v_name` VARCHAR(50), IN `v_email` VARCHAR(100), IN `v_address` VARCHAR(50), IN `v_phone` VARCHAR(30), IN `v_cell` INT, IN `v_photo` VARCHAR(150), IN `v_detail` TEXT)  BEGIN
+DECLARE nameCate varchar(50);
 IF NOT EXISTS(SELECT id FROM empresa WHERE name LIKE v_name) THEN
 INSERT INTO empresa VALUES(null, v_id_categoria, v_name, v_email, v_address, v_phone, v_cell, v_photo, v_detail);
-SELECT @@identity AS id, 'success' error;
+SET nameCate = (SELECT name FROM categoria WHERE id = v_id_categoria);
+SELECT @@identity AS id, 'success' error,nameCate;
 ELSE
 SELECT 'Error: Nombre de empresa ya registrado.' error;
 END IF;
@@ -53,7 +55,7 @@ SELECT @@identity AS id, 'success' error;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertTrabajo` (IN `v_id_empresa` INT, IN `v_name` VARCHAR(50), IN `v_detail` TEXT, IN `v_salary` FLOAT, IN `v_fec_in` DATETIME, IN `v_fec_lim` DATETIME)  BEGIN
-INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, v_fec_in, v_fec_lim);
+INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, CURRENT_TIMESTAMP, v_fec_in, v_fec_lim);
 SELECT @@identity AS id, 'success' error;
 END$$
 
@@ -99,13 +101,13 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `name`, `logo`) VALUES
-(1, 'tecnicos', 'tecnicos.jpg'),
-(2, 'hogar', 'hogar.jpg'),
-(3, 'diseñador', 'diseñador.jpg'),
-(4, 'licenciatura', 'licenciatura.jpg'),
-(5, 'ingenieria', 'ingenieria.jpg'),
-(6, 'salud', 'salud.jpg'),
-(7, 'sociales', 'sociales.jpg');
+(1, 'tecnicos', 'tecnicos.png'),
+(2, 'hogar', 'hogar.png'),
+(3, 'diseñador', 'diseñador.png'),
+(4, 'licenciatura', 'licenciatura.png'),
+(5, 'ingenieria', 'ingenieria.png'),
+(6, 'salud', 'salud.png'),
+(7, 'sociales', 'sociales.png');
 
 -- --------------------------------------------------------
 
@@ -175,9 +177,21 @@ CREATE TABLE `trabajo` (
   `detail` text COLLATE utf8_spanish_ci,
   `salary` float DEFAULT NULL,
   `fec` datetime DEFAULT NULL,
-  `fec_in` datetime DEFAULT NULL,
-  `fec_lim` datetime DEFAULT NULL
+  `fec_in` date DEFAULT NULL,
+  `fec_lim` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `trabajo`
+--
+
+INSERT INTO `trabajo` (`id`, `id_empresa`, `name`, `detail`, `salary`, `fec`, `fec_in`, `fec_lim`) VALUES
+(1, 1, 'Trabajo 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit ullamco laboris nisi ut aliquip ex ea commodo\nconsequat.', 5000, '2016-11-22 16:46:27', '2016-11-01', '2016-11-25'),
+(2, 1, 'Trabajo 2', 'detalle del trabajo 2', 3500, '2016-11-22 16:47:25', '2016-11-01', '2016-11-20'),
+(3, 2, 'Trabajo 1 empresa 2', 'detalle del trabajo de la empresa 2', 4500, '2016-11-22 16:48:50', '2016-10-25', '2016-11-15'),
+(4, 2, 'Trabajo 2 empresa 2', 'Detalle del trabajo 2 empresa 2', 4800, '2016-11-22 16:50:21', '2016-11-20', '2016-11-25'),
+(5, 3, 'Trabajo 1 empresa 3', 'Detalle del trabajo 1 empresa 3', 5500, '2016-11-22 16:51:22', '2016-11-20', '2016-11-30'),
+(6, 4, 'Trabajo 1 empresa 4', 'Detalle del trabajo 1 empresa 4', 3500, '2016-11-22 16:52:22', '2016-11-20', '2016-11-30');
 
 -- --------------------------------------------------------
 
@@ -188,12 +202,20 @@ CREATE TABLE `trabajo` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `las_name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `last_name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `password` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `cell` int(11) DEFAULT NULL,
   `fec` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `cell`, `fec`) VALUES
+(1, 'Juan', 'Perez', 'juan@gmail.com', 'b686682c584d3bb40e819d7eb67212b9e44ad99b', 75784266, '2016-11-23 22:30:33'),
+(3, 'Nicolas', 'Quispe', 'nick_8391@hotmail.com', 'b686682c584d3bb40e819d7eb67212b9e44ad99b', 68638233, '2016-11-24 00:36:32');
 
 --
 -- Índices para tablas volcadas
@@ -247,7 +269,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
@@ -257,7 +279,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `sucursal`
 --
@@ -267,12 +289,12 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
