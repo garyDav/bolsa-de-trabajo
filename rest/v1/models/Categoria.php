@@ -41,13 +41,13 @@ $app->get('/categoria/:id',function($id) use($app) {
 $app->post("/categoria/",function() use($app) {
 	$objDatos = json_decode(file_get_contents("php://input"));
 
-	$nombre = $objDatos->nombre;
+	$name = $objDatos->name;
 	$logo = $objDatos->logo;
 
 	try {
 		$conex = getConex();
 
-		$result = $conex->prepare("CALL pInsertCategoria('$nombre','$logo');");
+		$result = $conex->prepare("CALL pInsertCategoria('$name','$logo');");
 
 		$result->execute();
 		$res = $result->fetchObject();

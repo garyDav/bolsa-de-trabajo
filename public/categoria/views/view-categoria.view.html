@@ -1,1 +1,28 @@
-<h2>View Categoria</h2>
+<div class="row" ng-controller="categoriaCtrl" ng-init="find();">
+	<div class="col s12 m6" ng-repeat="d in data">
+		<h5 class="header">{{d.name}} </h5>
+		<div class="card horizontal">
+			<div class="card-image">
+				<img ng-src="material/img/{{d.photo}}">
+			</div>
+			<div class="card-stacked">
+				<div class="col s12">
+					<strong>De: </strong>{{d.fec_in}}
+				</div>
+				<div class="col s12">
+					<strong>Al: </strong>{{d.fec_lim}}
+				</div>
+				<div class="col s12">
+					<strong>Salario: </strong>{{d.salary}}
+				</div>
+				<div class="card-content">
+					<p>{{d.detail}} </p>
+				</div>
+				<div class="card-action">
+					<strong>Publicado: </strong>{{d.fec}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

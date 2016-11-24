@@ -4,7 +4,7 @@ use bolsa;
 CREATE TABLE user (
 	id integer PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	name varchar(50),
-	las_name varchar(50),
+	last_name varchar(50),
 	email varchar(100),
 	password varchar(100),
 	cell int,
@@ -136,9 +136,11 @@ CREATE PROCEDURE pInsertEmpresa (
 	IN v_detail text
 )
 BEGIN
+	DECLARE nameCate varchar(50);
 	IF NOT EXISTS(SELECT id FROM empresa WHERE name LIKE v_name) THEN
 		INSERT INTO empresa VALUES(null, v_id_categoria, v_name, v_email, v_address, v_phone, v_cell, v_photo, v_detail);
-		SELECT @@identity AS id, 'success' error;
+		SET nameCate = (SELECT name FROM categoria WHERE id = v_id_categoria);
+		SELECT @@identity AS id, 'success' error,nameCate;
 	ELSE
 		SELECT 'Error: Nombre de empresa ya registrado.' error;
 	END IF;

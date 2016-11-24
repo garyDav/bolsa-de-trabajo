@@ -13,5 +13,14 @@
 		}
 	]);
 
+	angular.module('categoriaModule').factory('trabajoCategoriaService',['$http',
+		function($http) {
+			return {
+				getTrabajoCate: function(id) {
+					return $http.get('rest/v1/trabajo/categoria/'+id);
+				}
+			};
+		}
+	]);
 
 })(window.angular);

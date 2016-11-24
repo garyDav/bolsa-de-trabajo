@@ -1,0 +1,151 @@
+<style>
+	.input-field select {
+		clear: both;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+	.input-field select option{
+		clear: both;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+</style>
+
+<div class="content" ng-controller="empresaCtrl"  ng-init="findCategoria();find();">
+	<div class="row">
+		<div class="col l3 m2"></div>
+		<div class="col l6 m8 s12">
+			<div class="card-panel blue-grey lighten-5">
+				<div class="row">
+					<div class="row" ng-show="mensaje">
+						<div class="col s12">
+							<div class="content">
+								<div class="card-panel blue-grey lighten-1">
+									{{mensaje}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<h3 class="s12 center-align">
+						Registra una nueva empresa
+					</h3>
+					<form class="col s12" name="form1">
+						<div class="row">
+							<div class="input-field col s12">
+								<select id="categoria" ng-model="newObj.id_categoria" >
+									<option ng-repeat="dc in dataCategoria" value="{{dc.id}}">{{dc.name}} </option>
+								</select>
+							</div>
+							<div class="input-field col s12">
+								<input id="name" type="text" class="validate" ng-model="newObj.name" required>
+								<label for="name">Nombre</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="email" type="email" class="validate" ng-model="newObj.email" required>
+								<label for="email">Correo</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="addess" type="text" class="validate" ng-model="newObj.address" required>
+								<label for="addess">Dirección</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="phone" type="text" class="validate" ng-model="newObj.phone" required>
+								<label for="phone">Telefono</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="cell" type="number" class="validate" ng-model="newObj.cell" required>
+								<label for="cell">Cell</label>
+							</div>
+							<div class="file-field input-field col s12">
+								<div class="btn">
+									<span>Imagen</span>
+									<input type="file" file-model="file">
+								</div>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text" ng-model="newObj.photo">
+								</div>
+							</div>
+							<div class="input-field col s12">
+								<textarea id="detail" class="materialize-textarea validate" ng-model="newObj.detail" required></textarea>
+								<label for="detail">Detalle</label>
+							</div>
+
+							<div class="row center">
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn" ng-click="save(newObj);"><i class="material-icons left">cloud</i>Guardar</a>
+								</div>
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn red darken-4" ng-click="cancelar();"><i class="material-icons left">clear_all</i>Cancelar</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col l3 m2"></div>
+	</div>
+
+
+
+
+	<div class="row">
+		<div class="col l2 m1"></div>
+		<div class="col l8 m10 s12">
+			<div class="content">
+				<div class="row">
+					<h3 class="col s12 center-align">Lista de las empresas</h3>
+				</div>
+				<div class="row">
+					<!-- List Lugar -->
+					<div class="col s12">
+						<table class="bordered highlight responsive-table">
+							<thead>
+								<tr>
+									<th>Imagen </th>
+									<th>Categoria </th>
+									<th>Nombre </th>
+									<th>Correo </th>
+									<th>Direccion </th>
+									<th>Telefono </th>
+									<th>Celular </th>
+									<th>Detalle </th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--<tr ng-repeat="g in garra | orderBy:'nombre':'reverse'">-->
+								<tr ng-repeat="d in data | orderBy:'id':'reverse'">
+									<td><img src="material/imgEmpresas/{{d.photo}}" class="responsive-img" width="45px"> </td>
+									<td>{{d.nameCate}} </td>
+									<td>{{d.name}} </td>
+									<td>{{d.email}} </td>
+									<td>{{d.address}} </td>
+									<td>{{d.phone}} </td>
+									<td>{{d.cell}} </td>
+									<td>{{d.detail}} </td>
+									<td><a class="waves-effect waves-light btn-floating red darken-4" ng-click="delete(d.id);"><i class="material-icons left">delete</i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col l2 m1"></div>
+	</div>
+
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$('input#input_text, textarea#descripcion').characterCounter();
+		$('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15 // Creates a dropdown of 15 years to control year
+		});
+		//$('select').material_select();
+	});
+</script>

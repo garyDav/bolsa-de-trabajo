@@ -1,7 +1,7 @@
 (function(angular){
 	'use strict';
-	angular.module('mainModule').controller('mainCtrl',['$scope','usuarioService','loginService','$rootScope','categoriaService','$location',
-		function($scope,usuarioService,loginService,$rootScope,categoriaService,$location) {
+	angular.module('mainModule').controller('mainCtrl',['$scope','loginService','$rootScope','categoriaService','$location','sessionService',
+		function($scope,loginService,$rootScope,categoriaService,$location,sessionService) {
 			$scope.mensaje = '';
 			$scope.msgtxt = '';
 			$scope.nav = function() {
@@ -10,6 +10,16 @@
 			$scope.navCate = function(id) {
 				$location.path('categoria/'+id);
 			};
+			$scope.navAdminCategoria = function() {
+				$location.path('crear/categoria');
+			};
+			$scope.navAdminEmpresa = function() {
+				$location.path('crear/empresa');
+			};
+			$scope.navAdminTrabajo = function() {
+				$location.path('crear/trabajo');
+			};
+
 			$scope.find = function() {
 				var obj = categoriaService.query();
 				obj.$promise.then(function(response){
@@ -18,26 +28,16 @@
 				},function(response){
 					console.log(response);
 				});
+				if( sessionService.get('user') == 'admin' ) {
+					$rootScope.user_id = sessionService.get('userId');
+					console.log(sessionService.get('userId'));
+					$rootScope.c_admin = true;
+				}
+				else {
+					$rootScope.c_admin = false;
+				}
 			};
-			$scope.create = function() {
-				var usuario = new usuarioService({
-					foto: '',
-					nombre : this.nombre,
-					apellido : this.apellido,
-					empresa: this.empresa,
-					correo : this.correo,
-					contra : this.contra,
-					telefono: '',
-					celular: ''
-				});
-				usuario.$save(function(response) {
-					console.log(response);
-					console.log(response.error);
-					$scope.mensaje = response.error;
-				},function(error) {
-					console.log(error);
-				});
-			};
+			
 			$scope.ingresar = function(user) {
 				loginService.login(user,$scope);
 				//$rootScope.isLogget = true;

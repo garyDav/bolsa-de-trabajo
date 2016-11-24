@@ -1,17 +1,5 @@
 (function(angular) {
 
-	'use strict';
-	angular.module('mainModule').factory('usuarioService',['$resource',
-		function($resource) {
-			return $resource('rest/v1/empleador/:id', {
-				id: '@id'
-			}, {
-				update: {
-					method: 'PUT'
-				}
-			});
-		}
-	]);
 	angular.module('mainModule').factory('categoriaService',['$resource',
 		function($resource) {
 			return $resource('rest/v1/categoria/:id', {
@@ -29,12 +17,14 @@
 			login: function(user,scope) {
 				var $promise = $http.post('rest/v1/login',user);
 				$promise.then(function(res){
+					console.log(res);
 					var uid = res.data.error;
 					if(uid == 'success') {
 						//scope.msgtxt = 'Correct Information';
-						sessionService.set('user',res.data.id);
-						$rootScope.c_user = true;
-						$location.path('/admin');
+						sessionService.set('user','admin');
+						$rootScope.c_admin = true;
+						sessionService.set('userId',res.data.id);
+						$location.path('/usuario/'+res.data.id);
 					} else {
 						scope.msgtxt = 'Error Information';
 						$location.path('/ingresar');
@@ -43,7 +33,13 @@
 			},
 			lougout: function() {
 				sessionService.destroy('user');
+				$rootScope.c_admin = false;
 				$location.path('/ingresar');
+			}, isLogged: function() {
+				if( sessionService.get('user') )
+					return true;
+				else
+					return false;
 			}
 		};
 	});
@@ -51,8 +47,6 @@
 	angular.module('mainModule').factory('sessionService',function ($http) {
 		return {
 			set: function(key,value) {
-				console.log(key);
-				console.log(value);
 				return localStorage.setItem(key,value);
 			},
 			get: function(key) {
@@ -203,6 +197,43 @@
 			}
 		};
 	});
+
+	angular.module('mainModule').service('upload',['$http','$q',function($http,$q) {
+		this.saveImg = function(img) {
+			console.log(img);
+			var deferred = $q.defer();
+			var formData = new FormData();
+			formData.append('img',img);
+			$http.post('data/server.php',formData, {
+				headers: {
+					'Content-Type': undefined
+				}
+			}).success(function(response){
+				deferred.resolve(response);
+			}).error(function(msg, code){
+				deferred.reject(msg);
+			});
+			return deferred.promise;
+		};
+	}]);
+	angular.module('mainModule').service('upload2',['$http','$q',function($http,$q) {
+		this.saveImg = function(img) {
+			console.log(img);
+			var deferred = $q.defer();
+			var formData = new FormData();
+			formData.append('img',img);
+			$http.post('data/server2.php',formData, {
+				headers: {
+					'Content-Type': undefined
+				}
+			}).success(function(response){
+				deferred.resolve(response);
+			}).error(function(msg, code){
+				deferred.reject(msg);
+			});
+			return deferred.promise;
+		};
+	}]);
 
 
 })(window.angular);

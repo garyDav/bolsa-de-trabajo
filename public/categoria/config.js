@@ -8,6 +8,8 @@
 					templateUrl: 'public/categoria/views/list-categoria.view.html'
 				}).when('/categoria/:id',{
 					templateUrl: 'public/categoria/views/view-categoria.view.html'
+				}).when('/crear/categoria',{
+					templateUrl: 'public/categoria/views/create-categoria.view.html'
 				});
 		}
 	]);

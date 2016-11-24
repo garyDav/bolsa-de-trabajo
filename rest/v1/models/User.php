@@ -51,8 +51,8 @@ $app->post("/user/",function() use($app) {
 		$conex = getConex();
 
 		$salt = '#/$02.06$/#_#/$25.10$/#';
-		$contra = md5($salt.$contra);
-		$contra = sha1($salt.$contra);
+		$password = md5($salt.$password);
+		$password = sha1($salt.$password);
 
 		$result = $conex->prepare("CALL pInsertUser('$name','$last_name','$email','$password','$cell');");
 
@@ -127,8 +127,8 @@ $app->post("/login/",function() use($app) {
 		$conex = getConex();
 
 		$salt = '#/$02.06$/#_#/$25.10$/#';
-		$contra = md5($salt.$contra);
-		$contra = sha1($salt.$contra);
+		$password = md5($salt.$password);
+		$password = sha1($salt.$password);
 
 		$result = $conex->prepare("CALL pSession('$email','$password');");
 

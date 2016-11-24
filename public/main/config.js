@@ -7,19 +7,19 @@
 				when('/',{
 					templateUrl: 'public/main/views/index.view.html'
 				}).
-				when('/admin',{
+				when('/usuario/:id',{
 					resolve: {
 						"check":function($location,sessionService) {
-							if(!sessionService.get('user'))
+							if( sessionService.get('user') != 'admin' )
 								$location.path('/ingresar');
 						}
 					},
-					templateUrl: 'public/main/views/main.view.html'
+					templateUrl: 'public/main/views/view-user.view.html'
 				}).
 				when('/ingresar',{
 					templateUrl: 'public/main/views/signin.view.html'
 				}).
-				when('/registrate',{
+				when('/registrar',{
 					templateUrl: 'public/main/views/signup.view.html'
 				}).otherwise({
 					redirectTo: '/'

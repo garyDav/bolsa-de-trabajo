@@ -1,0 +1,99 @@
+<div ng-controller="categoriaCtrl" ng-init="findCategoria();">
+	<div class="row">
+		<div class="col l3 m2"></div>
+		<div class="col l6 m8 s12">
+			<div class="card-panel blue-grey lighten-5">
+				<div class="row">
+					<div class="row" ng-show="mensaje">
+						<div class="col s12">
+							<div class="content">
+								<div class="card-panel blue-grey lighten-1">
+									{{mensaje}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<h3 class="s12 center-align">
+						Registra una nueva categoria
+					</h3>
+					<form class="col s12" name="form1">
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="nombre" type="text" class="validate" ng-model="newObj.name" required>
+								<label for="nombre">Nombre</label>
+							</div>
+							<div class="file-field input-field col s12">
+								<div class="btn">
+									<span>Logo</span>
+									<input type="file" file-model="file">
+								</div>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text" ng-model="newObj.logo">
+								</div>
+							</div>
+
+							<div class="row center">
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn" ng-click="save(newObj);"><i class="material-icons left">cloud</i>Guardar</a>
+								</div>
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn red darken-4" ng-click="cancelar();"><i class="material-icons left">clear_all</i>Cancelar</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col l3 m2"></div>
+	</div>
+
+
+
+
+	<div class="row">
+		<div class="col l2 m1"></div>
+		<div class="col l8 m10 s12">
+			<div class="content">
+				<div class="row">
+					<h3 class="col s12 center-align">Lista de las categorias </h3>
+				</div>
+				<div class="row">
+					<!-- List Lugar -->
+					<div class="col s12">
+						<table class="bordered highlight responsive-table">
+							<thead>
+								<tr>
+									<th>Logo </th>
+									<th>Nombre </th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--<tr ng-repeat="g in garra | orderBy:'nombre':'reverse'">-->
+								<tr ng-repeat="d in dataCategoria | orderBy:'id':'reverse'">
+									<td><img src="material/logos/{{d.logo}}" class="responsive-img" width="45px"> </td>
+									<td>{{d.name}} </td>
+									<td><a class="waves-effect waves-light btn-floating red darken-4" ng-click="delete(d.id);"><i class="material-icons left">delete</i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col l2 m1"></div>
+	</div>
+
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$('input#input_text, textarea#descripcion').characterCounter();
+		$('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15 // Creates a dropdown of 15 years to control year
+		});
+		$('select').material_select();
+	});
+</script>
