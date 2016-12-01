@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-11-2016 a las 09:16:33
+-- Tiempo de generación: 01-12-2016 a las 22:32:33
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 7.0.1
 
@@ -55,8 +55,12 @@ SELECT @@identity AS id, 'success' error;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertTrabajo` (IN `v_id_empresa` INT, IN `v_name` VARCHAR(50), IN `v_detail` TEXT, IN `v_salary` FLOAT, IN `v_fec_in` DATETIME, IN `v_fec_lim` DATETIME)  BEGIN
+DECLARE photo_e varchar(150);
+DECLARE name_empresa varchar(150);
+SET photo_e = (SELECT photo FROM empresa WHERE id = v_id_empresa);
+SET name_empresa = (SELECT name FROM empresa WHERE id = v_id_empresa);
 INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, CURRENT_TIMESTAMP, v_fec_in, v_fec_lim);
-SELECT @@identity AS id, 'success' error;
+SELECT @@identity AS id,CURRENT_TIMESTAMP AS fec,photo_e AS photo,name_empresa, 'success' error;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertUser` (IN `v_name` VARCHAR(50), IN `v_las_name` VARCHAR(50), IN `v_email` VARCHAR(100), IN `v_password` VARCHAR(100), IN `v_cell` INT)  BEGIN
@@ -96,19 +100,6 @@ CREATE TABLE `categoria` (
   `logo` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `categoria`
---
-
-INSERT INTO `categoria` (`id`, `name`, `logo`) VALUES
-(1, 'tecnicos', 'tecnicos.png'),
-(2, 'hogar', 'hogar.png'),
-(3, 'diseñador', 'diseñador.png'),
-(4, 'licenciatura', 'licenciatura.png'),
-(5, 'ingenieria', 'ingenieria.png'),
-(6, 'salud', 'salud.png'),
-(7, 'sociales', 'sociales.png');
-
 -- --------------------------------------------------------
 
 --
@@ -137,16 +128,6 @@ CREATE TABLE `empresa` (
   `photo` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `detail` text COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `empresa`
---
-
-INSERT INTO `empresa` (`id`, `id_categoria`, `name`, `email`, `address`, `phone`, `cell`, `photo`, `detail`) VALUES
-(1, 1, 'Constructora muro duro', 'm_constructora@gmail.com', 'Cll: Descatamento 111 N° 563', '64-35845', 75784211, 'empresa1.jpg', 'Esta es una empresa dedicada a la construccion de viviendas.'),
-(2, 1, 'Tecno Service', 'tecno_service@gmail.com', 'Ricardo Andrade N°10', '64-15476', 72784566, 'empresa2.jpg', 'Esta es una empresa dedicada a la reparacion y mantenimiento de computadoras.'),
-(3, 2, 'Empresa señoritas del hogar', 'hogar_emp@gmail.com', 'Jaime Mendoza N°541', '64-95478', 72006544, 'empresa3.jpg', 'Esta es una empresa donde contrataras las mejores chicas para el cuidado de tu hogar y el tuyo.'),
-(4, 4, 'Buffet los doctores', 'buffet_abogados@gmail.com', 'Aniceto Arce N°50', '64-65841', 73006588, 'empresa4.jpg', 'Esta es una empresa de gangster que te robaran si ganas un caso o no.');
 
 -- --------------------------------------------------------
 
@@ -181,18 +162,6 @@ CREATE TABLE `trabajo` (
   `fec_lim` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `trabajo`
---
-
-INSERT INTO `trabajo` (`id`, `id_empresa`, `name`, `detail`, `salary`, `fec`, `fec_in`, `fec_lim`) VALUES
-(1, 1, 'Trabajo 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit ullamco laboris nisi ut aliquip ex ea commodo\nconsequat.', 5000, '2016-11-22 16:46:27', '2016-11-01', '2016-11-25'),
-(2, 1, 'Trabajo 2', 'detalle del trabajo 2', 3500, '2016-11-22 16:47:25', '2016-11-01', '2016-11-20'),
-(3, 2, 'Trabajo 1 empresa 2', 'detalle del trabajo de la empresa 2', 4500, '2016-11-22 16:48:50', '2016-10-25', '2016-11-15'),
-(4, 2, 'Trabajo 2 empresa 2', 'Detalle del trabajo 2 empresa 2', 4800, '2016-11-22 16:50:21', '2016-11-20', '2016-11-25'),
-(5, 3, 'Trabajo 1 empresa 3', 'Detalle del trabajo 1 empresa 3', 5500, '2016-11-22 16:51:22', '2016-11-20', '2016-11-30'),
-(6, 4, 'Trabajo 1 empresa 4', 'Detalle del trabajo 1 empresa 4', 3500, '2016-11-22 16:52:22', '2016-11-20', '2016-11-30');
-
 -- --------------------------------------------------------
 
 --
@@ -214,7 +183,6 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `last_name`, `email`, `password`, `cell`, `fec`) VALUES
-(1, 'Juan', 'Perez', 'juan@gmail.com', 'b686682c584d3bb40e819d7eb67212b9e44ad99b', 75784266, '2016-11-23 22:30:33'),
 (3, 'Nicolas', 'Quispe', 'nick_8391@hotmail.com', 'b686682c584d3bb40e819d7eb67212b9e44ad99b', 68638233, '2016-11-24 00:36:32');
 
 --
@@ -269,7 +237,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
@@ -279,7 +247,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `sucursal`
 --
@@ -289,12 +257,12 @@ ALTER TABLE `sucursal`
 -- AUTO_INCREMENT de la tabla `trabajo`
 --
 ALTER TABLE `trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --
