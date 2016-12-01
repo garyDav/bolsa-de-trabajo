@@ -4,7 +4,7 @@ $app->get('/trabajo',function() use($app) {
 	try {
 		$conex = getConex();
 
-		$result = $conex->prepare("SELECT * FROM trabajo;");
+		$result = $conex->prepare("SELECT t.id,t.name,t.detail,t.salary,t.fec,t.fec_in,t.fec_lim,e.photo,e.name as name_empresa FROM trabajo as t,empresa as e WHERE t.id_empresa=e.id;");
 		
 		$result->execute();
 		$res = $result->fetchAll(PDO::FETCH_OBJ);

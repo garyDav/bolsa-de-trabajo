@@ -157,8 +157,12 @@ CREATE PROCEDURE pInsertTrabajo (
 	IN v_fec_lim datetime
 )
 BEGIN
+	DECLARE photo_e varchar(150);
+	DECLARE name_empresa varchar(150);
+	SET photo_e = (SELECT photo FROM empresa WHERE id = v_id_empresa);
+	SET name_empresa = (SELECT name FROM empresa WHERE id = v_id_empresa);
 	INSERT INTO trabajo VALUES(null, v_id_empresa, v_name, v_detail, v_salary, CURRENT_TIMESTAMP, v_fec_in, v_fec_lim);
-	SELECT @@identity AS id, 'success' error;
+	SELECT @@identity AS id,CURRENT_TIMESTAMP AS fec,photo_e AS photo,name_empresa, 'success' error;
 END //
 
 

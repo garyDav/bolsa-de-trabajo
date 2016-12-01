@@ -1,1 +1,139 @@
-<h3>Vista para crear trabajo</h3>
+<style>
+	.input-field select {
+		clear: both;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+	.input-field select option{
+		clear: both;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+</style>
+
+<div class="content" ng-controller="trabajoCtrl"  ng-init="findEmpresas();findTrabajo();">
+	<div class="row">
+		<div class="col l3 m2"></div>
+		<div class="col l6 m8 s12">
+			<div class="card-panel blue-grey lighten-5">
+				<div class="row">
+					<div class="row" ng-show="mensaje">
+						<div class="col s12">
+							<div class="content">
+								<div class="card-panel blue-grey lighten-1">
+									{{mensaje}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<h3 class="s12 center-align">
+						Registra un nuevo trabajo
+					</h3>
+					<form class="col s12" name="form1">
+						<div class="row">
+							<div class="input-field col s12">
+								<select id="categoria" ng-model="newObj.id_empresa" >
+									<option ng-repeat="dc in dataEmpresas" value="{{dc.id}}">{{dc.name}} </option>
+								</select>
+							</div>
+							<div class="input-field col s12">
+								<input id="name" type="text" class="validate" ng-model="newObj.name" required>
+								<label for="name">Nombre</label>
+							</div>
+							<div class="input-field col s12">
+								<textarea id="detail" class="materialize-textarea validate" ng-model="newObj.detail" required></textarea>
+								<label for="detail">Detalle</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="salario" type="number" class="validate" ng-model="newObj.salary" required>
+								<label for="salario">Salario</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="fecha_in" type="text" class="datepicker" ng-model="newObj.fec_in">
+								<label for="fecha_in">Fecha de inicio</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="fecha_lim" type="text" class="datepicker" ng-model="newObj.fec_lim">
+								<label for="fecha_lim">Fecha de limite</label>
+							</div>
+
+							<div class="row center">
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn" ng-click="save(newObj);"><i class="material-icons left">cloud</i>Guardar</a>
+								</div>
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn red darken-4" ng-click="cancelar();"><i class="material-icons left">clear_all</i>Cancelar</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col l3 m2"></div>
+	</div>
+
+
+
+
+	<div class="row">
+		<div class="col l2 m1"></div>
+		<div class="col l8 m10 s12">
+			<div class="content">
+				<div class="row">
+					<h3 class="col s12 center-align">Lista de trabajos</h3>
+				</div>
+				<div class="row">
+					<!-- List Lugar -->
+					<div class="col s12">
+						<table class="bordered highlight responsive-table">
+							<thead>
+								<tr>
+									<th>Imagen </th>
+									<th>Empresa </th>
+									<th>Trabajo </th>
+									<th>Detalle </th>
+									<th>Salario </th>
+									<th>Fecha inicio </th>
+									<th>Fecha limite </th>
+									<th>Registrado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--<tr ng-repeat="g in garra | orderBy:'nombre':'reverse'">-->
+								<tr ng-repeat="d in data | orderBy:'name_empresa'">
+									<td><img src="material/imgEmpresas/{{d.photo}}" class="responsive-img" width="45px"> </td>
+									<td>{{d.name_empresa}} </td>
+									<td>{{d.name}} </td>
+									<td>{{d.detail}} </td>
+									<td>{{d.salary}} </td>
+									<td>{{d.fec_in}} </td>
+									<td>{{d.fec_lim}} </td>
+									<td>{{d.fec}} </td>
+									<td><a class="waves-effect waves-light btn-floating red darken-4" ng-click="delete(d.id);"><i class="material-icons left">delete</i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col l2 m1"></div>
+	</div>
+
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$('input#input_text, textarea#descripcion').characterCounter();
+		$('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15 // Creates a dropdown of 15 years to control year
+		});
+		//$('select').material_select();
+	});
+</script>
+
