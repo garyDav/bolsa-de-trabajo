@@ -9,14 +9,24 @@
 
 			$scope.find = function() {
 				var f = new Date();
-				var ahora = f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
+				var dia = ''+f.getDate();
+				var mes = ''+(f.getMonth() +1);
+				if( dia.length == 1 ) {
+					dia = '0'+dia;
+				}
+				if( mes.length == 1 ) {
+					mes = '0'+mes;
+				}
+				var ahora = f.getFullYear() + "-" + mes + "-" + dia;
 				var obj = trabajoCategoriaService.getTrabajoCate($routeParams.id);
 				//console.log(obj);
 				obj.then(
 					function(response) {
 						var cont = 0;
 						response.data.forEach(function(element,index,array) {
-							console.log('Entraaaa');
+							console.log(funcionesService.fechaLimMayor(element.fec_lim, ahora));
+							console.log('fecha limite '+element.fec_lim);
+							console.log('ahora '+ahora);
 							if( funcionesService.fechaLimMayor(element.fec_lim, ahora) ) {
 								//response.data.splice(index,1);
 								element.fec = funcionesService.timeVerbal(element.fec);

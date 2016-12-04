@@ -33,6 +33,11 @@
 				},function(error) {
 					console.log(error);
 				});
+				$scope.name = '';
+				$scope.last_name = '';
+				$scope.cell = '';
+				$scope.email = '';
+				$scope.password = '';
 			};
 
 		}
