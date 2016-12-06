@@ -66,6 +66,16 @@ Bolsa de Trabajo:
     ☐ correo
     ☐ mensaje
     ☐ fecha
+  publicar:
+    ☐ id
+    ☐ id_departamento
+    ☐ trabajo
+    ☐ nombre
+    ☐ edad
+    ☐ correo
+    ☐ celular
+    ☐ detalle
+    ☐ fecha
 
 
 

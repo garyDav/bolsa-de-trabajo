@@ -1,0 +1,91 @@
+<style>
+	.input-field select {
+		clear: both;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+	.input-field select option{
+		clear: both;
+		display: block;
+		margin: 0;
+		padding: 0;
+	}
+</style>
+
+<div class="content" ng-controller="publicarCtrl"  ng-init="findDepartamento();">
+	<div class="row">
+		<div class="col l3 m2"></div>
+		<div class="col l6 m8 s12">
+			<div class="card-panel blue-grey lighten-5">
+				<div class="row">
+					<div class="row" ng-show="mensaje">
+						<div class="col s12">
+							<div class="content">
+								<div class="card-panel blue-grey lighten-1">
+									{{mensaje}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<h3 class="s12 center-align">
+						Publica los servicios que ofreces
+					</h3>
+					<form class="col s12" name="form1">
+						<div class="row">
+							<div class="input-field col s12">
+								<select id="categoria" ng-model="newObj.id_departamento" >
+									<option value="" disabled selected>Departamento </option>
+									<option ng-repeat="dc in dataDepartamento" value="{{dc.id}}">{{dc.name}} </option>
+								</select>
+							</div>
+							<div class="input-field col s12">
+								<input id="trabajo" type="text" class="validate" ng-model="newObj.work" required>
+								<label for="trabajo">Trabajo </label>
+							</div>
+							<div class="input-field col s12">
+								<input id="name" type="text" class="validate" ng-model="newObj.name" required>
+								<label for="name">Nombre </label>
+							</div>
+							<div class="input-field col s12">
+								<input id="age" type="number" class="validate" ng-model="newObj.age" required>
+								<label for="age">Edad </label>
+							</div>
+							<div class="input-field col s12">
+								<input id="email" type="email" class="validate" ng-model="newObj.email" required>
+								<label for="email">Correo </label>
+							</div>
+							<div class="input-field col s12">
+								<input id="cell" type="number" class="validate" ng-model="newObj.cell" required>
+								<label for="cell">Celular </label>
+							</div>
+							<div class="input-field col s12">
+								<textarea id="detail" class="materialize-textarea validate" ng-model="newObj.detail" required></textarea>
+								<label for="detail">Detalle </label>
+							</div>
+
+							<div class="row center">
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn" ng-click="save(newObj);"><i class="material-icons left">cloud</i>Guardar</a>
+								</div>
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn red darken-4" ng-click="cancel();"><i class="material-icons left">clear_all</i>Cancelar</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col l3 m2"></div>
+	</div>
+
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$('input#input_text, textarea#descripcion').characterCounter();
+	});
+</script>
+

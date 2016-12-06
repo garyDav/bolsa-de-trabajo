@@ -64,6 +64,21 @@ CREATE TABLE sucursal (
 	FOREIGN KEY (id_departamento) REFERENCES departamento(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+CREATE TABLE publicar (
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	id_departamento int,
+
+	work varchar(30),
+	name varchar(50),
+	age int,
+	email varchar(100),
+	cell int,
+	detail text,
+	fec datetime,
+
+	FOREIGN KEY (id_departamento) REFERENCES departamento(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
 
 
 
@@ -190,6 +205,24 @@ CREATE PROCEDURE pInsertSucursal (
 BEGIN
 	INSERT INTO sucursal VALUES(null, v_id_empresa, v_id_departamento, v_name, v_address, v_phone, v_cell);
 	SELECT @@identity AS id, 'success' error;
+END //
+
+--PROCEDIMIENTO PARA INSERTAR A LA TABLA PUBLICAR
+DROP PROCEDURE IF EXISTS pInsertPublicar;
+CREATE PROCEDURE pInsertPublicar (
+	IN v_id_departamento int,
+	IN v_work varchar(30),
+	IN v_name varchar(50),
+	IN v_age int,
+	IN v_email varchar(100),
+	IN v_cell int,
+	IN v_detail text
+)
+BEGIN
+	DECLARE depa varchar(100);
+	SET depa = (SELECT name FROM departamento WHERE id = v_id_departamento);
+	INSERT INTO publicar VALUES(null,v_id_departamento,v_work,v_name,v_age,v_email,v_cell,v_detail,CURRENT_TIMESTAMP);
+	SELECT @@identity AS id, CURRENT_TIMESTAMP AS fec,depa,'success' error;
 END //
 
 

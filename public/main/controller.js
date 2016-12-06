@@ -19,6 +19,9 @@
 			$scope.navAdminTrabajo = function() {
 				$location.path('crear/trabajo');
 			};
+			$scope.navPublicar = function() {
+				$location.path('publicar');
+			};
 
 			$scope.find = function() {
 				var obj = categoriaService.query();

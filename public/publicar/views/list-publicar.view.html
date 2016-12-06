@@ -1,0 +1,21 @@
+<div class="row" ng-controller="publicarCtrl" ng-init="find();">
+	<div class="col s12 m6" ng-repeat="d in data">
+		<div class="card blue-grey lighten-1">
+			<div class="card-content white-text">
+				<span class="card-title">{{d.work}} </span>
+				<blockquote>
+					Postulante: {{d.name}}<br>
+					Edad: {{d.age}}<br>
+					Correo: {{d.email}}<br>
+					Celular: {{d.cell}}
+				<blockquote>
+					Departamento: {{d.depa}}<br>
+					Detalle: {{d.detail}}
+				</blockquote>
+			</div>
+			<div class="card-action blue-grey lighten-2">
+				<strong>Publicado: </strong>{{d.fec}}
+			</div>
+		</div>
+	</div>
+</div>

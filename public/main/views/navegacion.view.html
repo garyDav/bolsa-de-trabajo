@@ -1,10 +1,11 @@
 <nav class="nav-extended blue-grey darken-3" ng-init="nav();find();">
   <div class="nav-wrapper">
     <a ng-href="/bolsa-de-trabajo/" class="brand-logo">Bolsa de trabajo</a>
-    <a ng-href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <a ng-href="#" data-activates="mobile-demo" class="button-collapse" style="margin: 0 0 0 25px"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a ng-href="/bolsa-de-trabajo/"><i class="material-icons left">info</i> Info</a></li>
       <li><a ng-href="/bolsa-de-trabajo/empresa"><i class="material-icons left">assessment</i> Empresas</a></li>
+      <li><a ng-href="/bolsa-de-trabajo/crear/publicacion"><i class="material-icons left">mode_edit</i> Publicar</a></li>
       <li ng-hide="c_admin"><a ng-href="/bolsa-de-trabajo/ingresar"><i class="material-icons left">vpn_key</i> Ingresar</a></li>
       <li ng-show="c_admin"><a ng-href="/bolsa-de-trabajo/registrar"><i class="material-icons left">vpn_key</i> Reg. Usuarios</a></li>
       <li ng-show="c_admin"><a ng-href="/bolsa-de-trabajo/usuario/{{user_id}}"><i class="material-icons left">perm_identity</i> Perfil</a></li>
@@ -13,6 +14,7 @@
     <ul class="side-nav" id="mobile-demo">
       <li><a ng-href="/bolsa-de-trabajo/"><i class="material-icons left">info</i> Info</a></li>
       <li><a ng-href="/bolsa-de-trabajo/empresa"><i class="material-icons left">assessment</i> Empresas</a></li>
+      <li><a ng-href="/bolsa-de-trabajo/crear/publicacion"><i class="material-icons left">mode_edit</i> Publicar</a></li>
       <li ng-hide="c_admin"><a ng-href="/bolsa-de-trabajo/ingresar"><i class="material-icons left">vpn_key</i> Ingresar</a></li>
       <li ng-show="c_admin"><a ng-href="/bolsa-de-trabajo/registrar"><i class="material-icons left">vpn_key</i> Reg. Usuarios</a></li>
       <li ng-show="c_admin"><a ng-href="/bolsa-de-trabajo/usuario/{{user_id}}"><i class="material-icons left">perm_identity</i> Perfil</a></li>
@@ -20,6 +22,7 @@
     </ul>
 
     <ul class="tabs tabs-transparent blue-grey darken-4">
+      <li ng-hide="c_admin" class="tab"><a ng-click="navPublicar();">Ver publicaciones </a></li>
       <li ng-hide="c_admin" class="tab" ng-repeat="d in data"><a ng-click="navCate(d.id);">{{d.name}} </a></li>
       <li ng-show="c_admin" class="tab"><a ng-click="navAdminCategoria();">Registrar Categorias </a></li>
       <li ng-show="c_admin" class="tab"><a ng-click="navAdminEmpresa();">Registrar Empresas </a></li>

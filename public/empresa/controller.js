@@ -68,7 +68,7 @@
 						console.log(newObj);
 					}
 				});
-				
+				$scope.newObj = {};
 			};
 			$scope.cancel = function() {
 				$scope.newObj = {};

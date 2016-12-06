@@ -21,6 +21,7 @@ require 'models/Empresa.php';
 require 'models/Sucursal.php';
 require 'models/Trabajo.php';
 require 'models/User.php';
+require 'models/Publicar.php';
 //end EntidadesRESTFULL
 
 $app->run();

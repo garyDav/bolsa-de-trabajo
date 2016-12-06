@@ -6,7 +6,15 @@
 			$scope.find = function() {
 				$scope.data = [];
 				var f = new Date();
-				var ahora = f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
+				var dia = ''+f.getDate();
+				var mes = ''+(f.getMonth() +1);
+				if( dia.length == 1 ) {
+					dia = '0'+dia;
+				}
+				if( mes.length == 1 ) {
+					mes = '0'+mes;
+				}
+				var ahora = f.getFullYear() + "-" + mes + "-" + dia;
 				var obj = trabajoEmpresaService.getTrabajo($routeParams.id);
 				//console.log(obj);
 				obj.then(
@@ -86,6 +94,7 @@
 				},function(response) {
 					console.log(response);
 				});
+				$scope.newObj = {};
 			};
 
 			$scope.cancel = function() {

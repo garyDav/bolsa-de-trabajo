@@ -3,7 +3,7 @@
 
 //Variable global mainApplicationModuleName donde carga el modulo principal
 var mainApplicationModuleName = 'bolsaT';
-var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngResource','ngRoute','ui.sortable','mainModule','categoriaModule','departamentoModule','empresaModule','sucursalModule','trabajoModule','userModule','LocalStorageModule','angular-loading-bar','ngAnimate']);
+var mainApplicationModule = angular.module(mainApplicationModuleName, ['ngResource','ngRoute','ui.sortable','mainModule','categoriaModule','departamentoModule','empresaModule','sucursalModule','trabajoModule','userModule','publicarModule','LocalStorageModule','angular-loading-bar','ngAnimate']);
 
 mainApplicationModule.config(['$locationProvider',function($locationProvider) {
 	$locationProvider.html5Mode(true);
@@ -18,7 +18,7 @@ mainApplicationModule.config(['cfpLoadingBarProvider', function(cfpLoadingBarPro
 }]);
 
 mainApplicationModule.run(function($rootScope,$location,sessionService,loginService) {
-	var routespermission = ['/','/categoria','/categoria/:id','/departamento','/departamento/:id','/empresa','/empresa/:id','/usuario/:id','/ingresar','/registrate','/sucursal','/sucursal/:id','/trabajo','/trabajos/empresa/:id','/usuario','/usuario/:id'];
+	var routespermission = ['/','/categoria','/categoria/:id','/departamento','/departamento/:id','/empresa','/empresa/:id','/usuario/:id','/ingresar','/registrate','/sucursal','/sucursal/:id','/trabajo','/trabajos/empresa/:id','/usuario','/usuario/:id','/crear/publicacion','/publicar'];
 	$rootScope.$on('$routeChangeStart',function() {
 		//console.log( 'Entra navegacion: '+routespermission.indexOf($location.path()) );
 		//console.log( 'Entra navegacion: '+ routespermission.indexOf($location.path()) );

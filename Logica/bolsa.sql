@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-12-2016 a las 06:21:46
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 7.0.5
+-- Tiempo de generación: 06-12-2016 a las 04:43:21
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 7.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -47,6 +47,13 @@ SELECT @@identity AS id, 'success' error,nameCate;
 ELSE
 SELECT 'Error: Nombre de empresa ya registrado.' error;
 END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertPublicar` (IN `v_id_departamento` INT, IN `v_work` VARCHAR(30), IN `v_name` VARCHAR(50), IN `v_age` INT, IN `v_email` VARCHAR(100), IN `v_cell` INT, IN `v_detail` TEXT)  BEGIN
+DECLARE depa varchar(100);
+SET depa = (SELECT name FROM departamento WHERE id = v_id_departamento);
+INSERT INTO publicar VALUES(null,v_id_departamento,v_work,v_name,v_age,v_email,v_cell,v_detail,CURRENT_TIMESTAMP);
+SELECT @@identity AS id, CURRENT_TIMESTAMP AS fec,depa,'success' error;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pInsertSucursal` (IN `v_id_empresa` INT, IN `v_id_departamento` INT, IN `v_name` VARCHAR(50), IN `v_address` VARCHAR(50), IN `v_phone` VARCHAR(30), IN `v_cell` INT)  BEGIN
@@ -105,17 +112,15 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `name`, `logo`) VALUES
-(8, 'Medicos', '1480629450.png'),
-(9, 'Albañiles', '1480629847.jpeg'),
-(10, 'Arquitectos', '1480630141.jpeg'),
-(11, 'Pintores', '1480630343.jpeg'),
-(12, 'Abogados', '1480630500.png'),
-(13, 'Diseñador', '1480630695.jpeg'),
-(14, 'Docentes', '1480630831.jpeg'),
-(15, 'Choferes', '1480631145.jpeg'),
-(16, 'Lavanderas', '1480631243.jpeg'),
-(17, 'Tecnicos', '1480631377.jpeg'),
-(18, 'Veterinarios', '1480645964.jpeg');
+(8, 'Medicos', 'categoria.jpg'),
+(9, 'Albañiles', 'categoria.jpg'),
+(10, 'Arquitectos', 'categoria.jpg'),
+(11, 'Pintores', 'categoria.jpg'),
+(12, 'Abogados', 'categoria.jpg'),
+(14, 'Docentes', 'categoria.jpg'),
+(15, 'Choferes', 'categoria.jpg'),
+(17, 'Tecnicos', 'categoria.jpg'),
+(18, 'Veterinarios', 'categoria.jpg');
 
 -- --------------------------------------------------------
 
@@ -127,6 +132,21 @@ CREATE TABLE `departamento` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `departamento`
+--
+
+INSERT INTO `departamento` (`id`, `name`) VALUES
+(1, 'Chuquisaca'),
+(2, 'La Paz'),
+(3, 'Potosi'),
+(4, 'Cochabamba'),
+(5, 'Santa Cruz'),
+(6, 'Beni'),
+(7, 'Pando'),
+(8, 'Tarija'),
+(9, 'Oruro');
 
 -- --------------------------------------------------------
 
@@ -159,6 +179,35 @@ INSERT INTO `empresa` (`id`, `id_categoria`, `name`, `email`, `address`, `phone`
 (15, 15, 'Dorado', 'dorado@gmail.com', 'Ostria Gutierrez', '64-65894', 75698246, '1480634892.jpg', 'Se necesita un chofer categria c  buen sueldo'),
 (16, 9, 'Constructora', 'constructora@gmail.com', 'Destacamento # 25', '64-25686', 73542135, '1480636678.jpeg', 'Busca maestro albañil y ayudantes'),
 (17, 18, 'Procam', 'veterinarios@gmail.com', 'Paraguay', '64-67659', 73465321, '1480646137.jpeg', 'La empresa procam se dedica a la atencion de mascotas.');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `publicar`
+--
+
+CREATE TABLE `publicar` (
+  `id` int(11) NOT NULL,
+  `id_departamento` int(11) DEFAULT NULL,
+  `work` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cell` int(11) DEFAULT NULL,
+  `detail` text COLLATE utf8_spanish_ci,
+  `fec` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `publicar`
+--
+
+INSERT INTO `publicar` (`id`, `id_departamento`, `work`, `name`, `age`, `email`, `cell`, `detail`, `fec`) VALUES
+(1, 1, 'Trabajo 1', 'Nombre del trabajodor 1', 28, 'correo@correo.com', 75782211, 'Experiencia 5 años', '2016-12-04 15:02:57'),
+(2, 2, 'Trabajo 2', 'Nombre del trabajador 2', 30, 'correo@correo.com', 75794511, 'Detalle del trabajo 2', '2016-12-04 15:05:07'),
+(3, 3, 'Trabajo 3', 'Nombre del trabajador 3', 35, 'correo@gmail.com', 65002544, 'Detalle del trabajo 3', '2016-12-04 15:06:01'),
+(4, 4, 'Trabajo 4', 'Nombre del trabajador 4', 24, 'correo@correo.com', 73008855, 'Detalle del trabajo 4', '2016-12-04 15:07:16'),
+(5, 1, 'Lo que sea necesito plata', 'Pedro Fernandez', 30, 'pedrito@gmail.com', 65008455, 'Estoy urgido por favor contratenme are lo que me digan.', '2016-12-05 23:40:45');
 
 -- --------------------------------------------------------
 
@@ -254,6 +303,13 @@ ALTER TABLE `empresa`
   ADD KEY `id_categoria` (`id_categoria`);
 
 --
+-- Indices de la tabla `publicar`
+--
+ALTER TABLE `publicar`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_departamento` (`id_departamento`);
+
+--
 -- Indices de la tabla `sucursal`
 --
 ALTER TABLE `sucursal`
@@ -287,12 +343,17 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `publicar`
+--
+ALTER TABLE `publicar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `sucursal`
 --
@@ -317,6 +378,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `empresa`
   ADD CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`);
+
+--
+-- Filtros para la tabla `publicar`
+--
+ALTER TABLE `publicar`
+  ADD CONSTRAINT `publicar_ibfk_1` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id`);
 
 --
 -- Filtros para la tabla `sucursal`
